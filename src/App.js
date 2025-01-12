@@ -1,10 +1,6 @@
-
+import Body from "./components/Body";
 function App() {
-  return (
-    <div className="text-lg font-bold text-red-950 ml-10">
-   hello
-    </div>
-  );
+  return <Body/>;
 }
 
 export default App;
