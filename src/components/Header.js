@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils.js/appStore/userSlice";
+import { toggleGptSearch } from "../utils.js/appStore/gptSlice";
 import { netflixLogo } from "../utils.js/constant";
 
 const Header = () => {
@@ -14,6 +15,7 @@ const Header = () => {
   const handleSignOut = () => {
     signOut(auth);
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -27,9 +29,17 @@ const Header = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  const onExploreMoviesClick = () => {
+    dispatch(toggleGptSearch());
+  };
+
   return (
     <div className="items-center absolute px-8 py-2 bg-gradient-to-b from-black w-full z-10 flex flex-row justify-between">
       <img alt="netflix-logo" className="w-44" src={netflixLogo} />
+      <button className="text-white" onClick={onExploreMoviesClick}>
+        Explore Movies
+      </button>
       <div>
         <button className="text-white" onClick={handleSignOut}>
           Sign out
